@@ -28,6 +28,12 @@ from ultraModule import getDistance
 # =======================================================================
 from TurnModule import *
 
+# =======================================================================
+# import trackingMoudule
+# =======================================================================
+from trackingMoudule import *
+
+
 
 # =======================================================================
 # rightPointTurn() and leftPointTurn() in TurnModule module
@@ -62,30 +68,7 @@ pwm_setup()
 dis = 20  # ??
 obstacle = 1
 
-# when obstacle=1, the power and
-# running time of the first turn
-SwingPr = 90  # student assignment (8)
-SwingTr = 0.9  # student assignment (9)
-# when obstacle=2, the power and
-# running time of the second turn
-PointPr = 90
-PointTr = 0.9
-# when the half final is reached,
-# the power and running time of 180 degree turn
-PointP180= 90
-PointT180= 1.8
-# when obstacle=3, the power and
-# running time of the third turn
-PointPl= 90
-PointTl= 0.9
-# when obstacle=4, the power and
-# running time of the fourth turn
-SwingPl= 90
-SwingTl= 0.9
-# when the final is reached,
-# the power and running time of 180 degree turn
-PointP360= 90
-PointT360= 1.8
+
 
 try:
     while True:
@@ -95,42 +78,33 @@ try:
 
         # when the distance is above the dis, moving object forwards
         if (distance > dis):
-            go_forward_any(50)
-            print('obstacle=', obstacle)
+		tl = trackinglist
+		while tl == [1,1,0,1,1] or tl ==[1,0,0,0,1]: # 전진 
+			go_any_forward(30, 25)
+		while tl == [0,1,1,1,1] or tl == [0,0,1,1,1] or tl == [0,0,0,1,1] or\ # 좌측 
+				 tl ==[1,0,1,1,1] or tl == [1,0,0,1,1]:
+			go_any_forward(30,28)
+		while tl == [1,1,1,1,0] or tl == [1,1,1,0,0] or tl == [1,1,0,0,0] or\ # 우측 
+				 tl ==[1,1,1,0,1] or tl == [1,1,0,0,1]:
+			go_any_forward(30,30)  #제 왼쪽 모터가 오른쪽모터보다 파워가 좀더 강함 ,,,
+            
 
         # when the distance is below the dis, moving object stops
         else:
             # stop and wait 1 second
-            stop()
-            sleep(1)
-            if obstacle == 1:
-                rightSwingTurn(SwingPr, SwingTr)
-                sleep(0.5)
-                obstacle += 1
+            	stop()
+            	sleep(1)
+            	rightPointTurn(30, 0.2)
+            	sleep(0.5)
+		go_forward_any(20)
+		sleep(0.5)
+		leftPointturn(30, 0.2)
+		sleep(0.5)
+		go_forward_any(20)
+		leftPointturn(30, 0.2)
+		sleep(0.5)
+		go_forward_any(20)
                 continue
-            if obstacle == 2:
-                rightPointTurn(PointPr, PointTr)
-                sleep(0.5)
-                go_forward(50, 3)
-                stop()
-                sleep(1)
-                rightPointTurn(PointP180, PointT180)
-                sleep(0.5)
-                obstacle += 1
-                continue
-            if obstacle == 3:
-                leftPointTurn(PointPl, PointTl= 0.9)
-                sleep(0.5)
-                obstacle += 1
-                continue
-            if obstacle == 4:
-                leftSwingTurn(SwingPl, SwingTl)
-                sleep(0.5)
-                go_forward(50, 3)
-                stop()
-                sleep(1)
-                rightPointTurn(PointP360, PointT360)
-                break
 
 
             ########################################################

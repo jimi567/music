@@ -106,6 +106,7 @@ GPIO.setup(rightmostled, GPIO.IN)
 # rightmostled returns (0) : rightmostled detects black line
 #
 # =======================================================================
+trackinglist = [0, 0, 0, 0, 0]
 
 
 try:
@@ -116,6 +117,12 @@ try:
        print("rightlessled detects black line(0) or white ground(1): " + str(GPIO.input(rightlessled)))
        print("rightmostled detects black line(0) or white ground(1): " + str(GPIO.input(rightmostled)))
        time.sleep(1)
+	trackinglist[4] = GPIO.input.leftmostled
+	trackinglist[3] = GPIO.input.leftlessled
+	trackinglist[2] = GPIO.input.centerled
+	trackinglist[1] = GPIO.input.rightlessled
+	trackinglist[0] = GPIO.input.rightmostled
+	print('[ECABD] = ' , trackinglist )
                
 except KeyboardInterrupt:
     GPIO.cleanup()

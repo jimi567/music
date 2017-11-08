@@ -136,7 +136,7 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 #  objec to go forward without any limitation of running_time
 # =======================================================================
 
-def go_forward_any(speed):
+def go_forward_any(rs, ls):
     # set the left motor to go backward
     leftmotor(forward0)
     GPIO.output(MotorLeft_PWM,GPIO.HIGH)
@@ -144,9 +144,9 @@ def go_forward_any(speed):
     rightmotor(forward0)
     GPIO.output(MotorRight_PWM,GPIO.HIGH)
     # set the speed of the left motor to go backward
-    LeftPwm.ChangeDutyCycle(speed - 8)
+    LeftPwm.ChangeDutyCycle(ls)
     # set the speed of the right motor to go backward
-    RightPwm.ChangeDutyCycle(speed)
+    RightPwm.ChangeDutyCycle(rs)
 
 
 # student assignment (4)
