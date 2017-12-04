@@ -1,0 +1,10 @@
+happy
+word
+apple
+current
+text
+guess
+hangman
+testcase
+assignment
+python
