@@ -9,6 +9,7 @@ class Guess:
 
 
     def guess(self, character):
+    
         self.guessedChars |= {character}
         if character not in self.secretWord:
             return False
